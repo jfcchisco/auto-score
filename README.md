@@ -11,6 +11,7 @@ First working version is comprised of the following files:
 - [song].py - bohemian.py serves as example
 
 **Step 1: Get video and calibrate color**
+
 Download video from Youtube, here is the example for bohemian.py (Queen - Bohemian Rhapsody by Sheet Music Boss), save it to root folder.
 Rename the variable *video* to the file name.
 Open one frame of the video where the keyboard can be seen in full and pick a Y-coordinate where it will be convenient to scan if a natural node is pressed (variable NY) and a where flat note is pressed (FY). 
