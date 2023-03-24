@@ -10,24 +10,26 @@ First working version is comprised of the following files:
 - parameters.py
 - [song].py - bohemian.py serves as example
 
-**Step 1: Get video and calibrate color**
+**Step 1: Get video and create array of keys**
 
 Download video from Youtube, here is the example for bohemian.py (Queen - Bohemian Rhapsody by Sheet Music Boss https://www.youtube.com/watch?v=CNRkEFvg9OI), save it to root folder.
 Rename the variable *video* to the file name.
 
 Open one frame of the video where the keyboard can be seen in full and pick a Y-coordinate where it will be convenient to scan if a natural node (white key) is pressed (variable NY) and a where flat note (black key) is pressed (FY). 
 
+Pick the first and last keys that are completely visible, on a complete 7-octave keyobard, the first key should be "A1" and last "C8". Depending on how the video is rendered, there keys are different, for the *bohemian.py* case the first is "A1" while the last is "D7". If a key is cut, don't take into account, it should the first fully visible key at each side.
+
+Locate the X coordinate where the first key starts and the one where the last key ends, for our case it would 0 and 1280.
+
 Save your *song.py* file, open *parameters.py* and rename the first import to load, now it states *import bohemian as pm*, you might change it to the corresponding new file name.
 
-Now, *color_calibration.py* can be executed. Run *"python3 color_calibration.py > out.txt"*, it will print the RGB color of all new keys being pressed for each frame. Look for frames were each type of note is being pressed: Left Hand Natural Node (white key on left hand, usually light blue, variable name LHNN), Left Hand Flat Note (black key on left hand, dark blue, LHFN), Right Hand Natural Note (light green, RHNN) and Right Hand Flat Note (RHFN). Save those values in your song.py file. There is an additional variable called *threshold* which represents the tolerance in which those values can change from key to key, default is 20 and usually works well, but there mught be cases where the colors are too similar and the threshold must be reduced, or the colors are changing across the video for a same key and it must be increased.
+With those variables set, we're ready to execute *key_printer.py*. Run *"python3 key_printer"* and it will print on the console a nested array containing the X coordinate for each of the keys visible in the video. Copy this output and paste it as variable *keys* in your *song.py* file
 
-**Step 2: Get array keys of keys**
+**Step 2: Calibrate color**
 
-Using the same frame picture where the entire keyboard can be seen, pick the first and last keys that are completely visible, on a complete 7-octave keyobard, the first key should be "A1" and last "C8". Depending on how the video is rendered, there keys are different, for the *bohemian.py* case the first is "A1" while the last is "D7". If a key is cut, don't take into account, it should the first fully visible key at each side.
+Now, *color_calibration.py* can be executed. Run *"python3 color_calibration.py > out.txt"*, it will print the RGB color of all new keys being pressed for each frame. Look for frames were each type of note is being pressed: Left Hand Natural Node (white key on left hand, usually light blue, variable name LHNN), Left Hand Flat Note (black key on left hand, dark blue, LHFN), Right Hand Natural Note (light green, RHNN) and Right Hand Flat Note (RHFN). 
 
-With the same frame picture, locate the X coordinate where the first key starts and the one where the last key ends, for our case it would 0 and 1280. 
-
-With those 4 variables set, we're ready to execute *key_printer.py*. Run *"python3 key_printer"* and it will print on the console a nested array containing the X coordinate for each of the keys visible in the video. Copy this output and paste it as variable *keys* in your *song.py* file.
+Save those values in your song.py file. There is an additional variable called *threshold* which represents the tolerance in which those values can change from key to key, default is 20 and usually works well, but there mught be cases where the colors are too similar and the threshold must be reduced, or the colors are changing across the video for a same key and it must be increased.
 
 **Step 3: Execute auto_score**
 
